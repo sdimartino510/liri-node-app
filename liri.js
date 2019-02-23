@@ -6,6 +6,7 @@ var moment = require("moment");
 var fs = require("fs");
 var keys = require("./keys.js");
 var spotify = new Spotify(keys.spotify);
+// var random = require("./random.txt");
 
 var spotifyThisSong = function (songName) {
     if (songName === "") {
@@ -15,6 +16,7 @@ var spotifyThisSong = function (songName) {
         .search({ type: 'track', query: songName })
         .then(function (response) {
             // for (var i = 0; i < response.tracks.items.length; i++) {
+                // console.log(response);
                 console.log(response.tracks.items[0].artists[0].name);
                 console.log(response.tracks.items[0].name);
                 console.log(response.tracks.items[0].preview_url);
@@ -71,6 +73,17 @@ var movieThis = function (movieName) {
 }
 
 var doWhatItSays = function () {
+
+    fs.readFile("random.txt", "utf8", function(err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        data = data.split(",");
+        userCommand = data[0];
+        userChoice = data[1];
+        runCommand(userCommand, userChoice);
+        console.log(data);
+    })
 
 }
 
