@@ -4,7 +4,7 @@ Unit 10 Homework
 
 # LIRI
 
-LIRI stands for "Language Interpretation and Recognition Interface." LIRI is a command-line node app that takes in a command and a subject for the command, and returns the relevant data. [Video demo](https://drive.google.com/file/d/1zG0i-2-SF-WUKr3wccHwCaitBPmbrcwM/view?usp=sharing).
+LIRI stands for "Language Interpretation and Recognition Interface." LIRI is a command-line node app that takes in a command and a subject for the command, and returns the relevant data. [Video demo](https://drive.google.com/file/d/1WO02MvmusWie9wnCp8gh7CVlSEUjBVNb/view?usp=sharing).
 
 ## How to use LIRI:
 
