@@ -11,79 +11,91 @@ var spotify = new Spotify(keys.spotify);
 // Song identification function
 var spotifyThisSong = function(songName) {
   if (songName === "") {
-    songName = "The Sign Ace of Base";
+    console.log("-------------------------------------------");
+    console.log("Please enter a song title after the command");
+    console.log("-------------------------------------------");
+  } else {
+    spotify
+      .search({ type: "track", query: songName })
+      .then(function(response) {
+        console.log("-------------------------------------------------------");
+        console.log("Artist: " + response.tracks.items[0].artists[0].name);
+        console.log("Song Title: " + response.tracks.items[0].name);
+        console.log("Album Name: " + response.tracks.items[0].album.name);
+        console.log("Preview URL: " + response.tracks.items[0].preview_url);
+        console.log("-------------------------------------------------------");
+      })
+
+      .catch(function(err) {
+        console.log(err);
+      });
   }
-
-  spotify
-    .search({ type: "track", query: songName })
-    .then(function(response) {
-      console.log("-------------------------------------------------------");
-      console.log("Artist: " + response.tracks.items[0].artists[0].name);
-      console.log("Song Title: " + response.tracks.items[0].name);
-      console.log("Album Name: " + response.tracks.items[0].album.name);
-      console.log("Preview URL: " + response.tracks.items[0].preview_url);
-      console.log("-------------------------------------------------------");
-    })
-
-    .catch(function(err) {
-      console.log(err);
-    });
 };
 
 // Band upcoming concert dates function
 var concertThis = function(bandName) {
-  axios
-    .get(
-      "https://rest.bandsintown.com/artists/" +
-        bandName +
-        "/events?app_id=codingbootcamp"
-    )
-    .then(function(response) {
-      console.log("-------------------------------------------------");
-      console.log("Venue/Event Name: " + response.data[0].venue.name);
-      console.log("City: " + response.data[0].venue.city);
-      console.log("State/Region: " + response.data[0].venue.region);
-      console.log("Country: " + response.data[0].venue.country);
-      console.log(
-        "Date: " + moment(response.data[0].datetime).format("MM-DD-YYYY")
-      );
-      console.log("-------------------------------------------------");
-    })
+  if (bandName === "") {
+    console.log("----------------------------------------------------");
+    console.log("Please enter a band or artist name after the command");
+    console.log("----------------------------------------------------");
+  } else {
+    axios
+      .get(
+        "https://rest.bandsintown.com/artists/" +
+          bandName +
+          "/events?app_id=codingbootcamp"
+      )
+      .then(function(response) {
+        console.log("-------------------------------------------------");
+        console.log("Venue/Event Name: " + response.data[0].venue.name);
+        console.log("City: " + response.data[0].venue.city);
+        console.log("State/Region: " + response.data[0].venue.region);
+        console.log("Country: " + response.data[0].venue.country);
+        console.log(
+          "Date: " + moment(response.data[0].datetime).format("MM-DD-YYYY")
+        );
+        console.log("-------------------------------------------------");
+      })
 
-    .catch(function(err) {
-      console.log(err);
-    });
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
 };
 
 // Movie identification function
 var movieThis = function(movieName) {
   if (movieName === "") {
-    movieName = "Mr. Nobody";
+    console.log("--------------------------------------------");
+    console.log("Please enter a movie title after the command");
+    console.log("--------------------------------------------");
+  } else {
+    axios
+      .get(
+        "http://omdbapi.com/?t=" +
+          movieName +
+          "&y=&plot=short&r=json&apikey=trilogy"
+      )
+      .then(function(response) {
+        console.log("------------------------------------");
+        console.log("Movie Title: " + response.data.Title);
+        console.log("Release Year: " + response.data.Year);
+        console.log("MPAA Rating: " + response.data.Rated);
+        console.log("IMDB Rating: " + response.data.imdbRating);
+        console.log(
+          "Rotten Tomatoes Rating: " + response.data.Ratings[1].Value
+        );
+        console.log("Production Country: " + response.data.Country);
+        console.log("Language of Movie: " + response.data.Language);
+        console.log("Plot: " + response.data.Plot);
+        console.log("Cast: " + response.data.Actors);
+        console.log("------------------------------------");
+      })
+
+      .catch(function(error) {
+        console.log(error);
+      });
   }
-
-  axios
-    .get(
-      "http://omdbapi.com/?t=" +
-        movieName +
-        "&y=&plot=short&r=json&apikey=trilogy"
-    )
-    .then(function(response) {
-      console.log("------------------------------------");
-      console.log("Movie Title: " + response.data.Title);
-      console.log("Release Year: " + response.data.Year);
-      console.log("MPAA Rating: " + response.data.Rated);
-      console.log("IMDB Rating: " + response.data.imdbRating);
-      console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-      console.log("Production Country: " + response.data.Country);
-      console.log("Language of Movie: " + response.data.Language);
-      console.log("Plot: " + response.data.Plot);
-      console.log("Cast: " + response.data.Actors);
-      console.log("------------------------------------");
-    })
-
-    .catch(function(error) {
-      console.log(error);
-    });
 };
 
 // Function that executes whatever command is stored in "random.txt" file
